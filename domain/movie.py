@@ -1,11 +1,11 @@
 import uuid
 from dataclasses import dataclass, field
 from typing import Optional
-MAX_TITLE = 255
-@dataclass
 
+MAX_TITLE = 255
+
+@dataclass
 class Movie:
-    """Entidade Movie simples; relaciona com Category via category_id."""
     title: str
     year: int
     category_id: str
@@ -31,7 +31,7 @@ class Movie:
         if len(t) > MAX_TITLE:
             raise ValueError(f"title deve ter no máximo {MAX_TITLE} caracteres")
         return t
-    
+
     @staticmethod
     def _validate_year(year: int) -> int:
         if not isinstance(year, int):
@@ -39,14 +39,8 @@ class Movie:
         if year < 1880 or year > 2100:
             raise ValueError("year fora do intervalo razoável (1880..2100)")
         return year
-    
-    def update(
-        self, *,
-        title: Optional[str] = None,
-        description: Optional[str] = None,
-        year: Optional[int] = None,
-        category_id: Optional[str] = None
-        ):
+
+    def update(self, *, title: Optional[str] = None, description: Optional[str] = None, year: Optional[int] = None, category_id: Optional[str] = None):
         if title is not None:
             self.title = self._validate_title(title)
         if description is not None:
@@ -55,13 +49,12 @@ class Movie:
             self.year = self._validate_year(year)
         if category_id is not None:
             self.category_id = category_id
-    
+
     def activate(self): self.is_active = True
-    
     def deactivate(self): self.is_active = False
-    
+
     def __str__(self) -> str:
-        return f"{self.title} ({self.year}) | cat={self.category_id}({self.is_active})"
-    
+        return f"{self.title} ({self.year}) | cat={self.category_id} ({self.is_active})"
+
     def __repr__(self) -> str:
         return f"<Movie {self.title} ({self.id})>"

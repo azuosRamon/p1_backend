@@ -1,7 +1,6 @@
 from domain.category import Category
 from shared.event_dispatcher import dispatcher
-# Importar handlers para garantir que sejam registrados
-import app.event_handlers
+import application.event_handlers
 
 print("--- Criando uma nova categoria ---")
 category1 = Category(name="Eletrônicos", description="Produtos eletrônicos em geral")

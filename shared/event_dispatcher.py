@@ -1,4 +1,3 @@
-# shared/event_dispatcher.py
 from typing import Callable, Dict, List, Type
 from shared.domain_event import DomainEvent
 
@@ -8,11 +7,10 @@ class EventDispatcher:
 
     def register_handler(self, event_type: Type[DomainEvent], handler: Callable[[DomainEvent], None]) -> None:
         self._handlers.setdefault(event_type, []).append(handler)
-    
+
     def dispatch(self, event: DomainEvent) -> None:
         handlers = self._handlers.get(type(event), [])
         for handler in handlers:
             handler(event)
 
-# Instância global do dispatcher (ou injetada via DI)
 dispatcher = EventDispatcher()
